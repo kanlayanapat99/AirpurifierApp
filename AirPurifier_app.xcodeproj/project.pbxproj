@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8836893F2E044CBF0085D877 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 8836893E2E044CBF0085D877 /* BottomSheet */; };
+		88B09BB02E325A2C000B4AFE /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 88B09BAF2E325A2C000B4AFE /* KeychainAccess */; };
+		88C3C3D02E549B2700B76724 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 88C3C3CF2E549B2700B76724 /* GoogleSignIn */; };
+		88C3C3D22E549B2700B76724 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 88C3C3D12E549B2700B76724 /* GoogleSignInSwift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		88D704C12DFD5CE500A9AE2E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +59,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88B09BB02E325A2C000B4AFE /* KeychainAccess in Frameworks */,
+				8836893F2E044CBF0085D877 /* BottomSheet in Frameworks */,
+				88C3C3D02E549B2700B76724 /* GoogleSignIn in Frameworks */,
+				88C3C3D22E549B2700B76724 /* GoogleSignInSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +123,10 @@
 			);
 			name = AirPurifier_app;
 			packageProductDependencies = (
+				8836893E2E044CBF0085D877 /* BottomSheet */,
+				88B09BAF2E325A2C000B4AFE /* KeychainAccess */,
+				88C3C3CF2E549B2700B76724 /* GoogleSignIn */,
+				88C3C3D12E549B2700B76724 /* GoogleSignInSwift */,
 			);
 			productName = AirPurifier_app;
 			productReference = 88D704B32DFD5CE200A9AE2E /* AirPurifier_app.app */;
@@ -192,9 +207,15 @@
 			knownRegions = (
 				en,
 				Base,
+				th,
 			);
 			mainGroup = 88D704AA2DFD5CE200A9AE2E;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8836893D2E044CBF0085D877 /* XCRemoteSwiftPackageReference "BottomSheet" */,
+				88B09BAE2E325A2C000B4AFE /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				88C3C3CE2E549B2700B76724 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 88D704B42DFD5CE200A9AE2E /* Products */;
 			projectDirPath = "";
@@ -394,9 +415,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = M58MND63UU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "AirPurifier-app-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = AirPurifierApp;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -407,7 +431,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "iotTest.AirPurifier-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "iotTest1.AirPurifier-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -421,9 +445,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = M58MND63UU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "AirPurifier-app-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = AirPurifierApp;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -434,7 +461,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "iotTest.AirPurifier-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "iotTest1.AirPurifier-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -550,6 +577,56 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8836893D2E044CBF0085D877 /* XCRemoteSwiftPackageReference "BottomSheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Wouter125/BottomSheet.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+		88B09BAE2E325A2C000B4AFE /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.2;
+			};
+		};
+		88C3C3CE2E549B2700B76724 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8836893E2E044CBF0085D877 /* BottomSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8836893D2E044CBF0085D877 /* XCRemoteSwiftPackageReference "BottomSheet" */;
+			productName = BottomSheet;
+		};
+		88B09BAF2E325A2C000B4AFE /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 88B09BAE2E325A2C000B4AFE /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+		88C3C3CF2E549B2700B76724 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 88C3C3CE2E549B2700B76724 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		88C3C3D12E549B2700B76724 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 88C3C3CE2E549B2700B76724 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 88D704AB2DFD5CE200A9AE2E /* Project object */;
 }
