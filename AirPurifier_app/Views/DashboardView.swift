@@ -18,18 +18,14 @@ struct DashboardView: View {
                 Stats()
                     .padding(.vertical, 15)
             }
-            .navigationTitle("")
+            .navigationTitle("Dashboard".loc)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    HStack(spacing: 30) {
-                        Text("Dashboard".loc)
-                            .font(.largeTitle).bold()
-                        Button {
-                            showInfo = true
-                        } label: {
-                            Image(systemName: "info.circle")
-                                .imageScale(.large)
-                        }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showInfo = true
+                    } label: {
+                        Image(systemName: "info.circle")
+                            .imageScale(.large)
                     }
                 }
             }
@@ -65,21 +61,21 @@ struct DashboardView: View {
                         .padding()
                         .background(
                             RoundedRectangle(cornerRadius: 16)
-                                .fill(Color(.systemBackground)) // <-- เปลี่ยนตามธีม
+                                .fill(Color(.systemBackground))
                                 .shadow(radius: 10)
                         )
                         .frame(maxWidth: 300)
                     }
                 }
             }
-
-            } .id(languageManager.selectedLanguage)
         }
+        .id(languageManager.selectedLanguage)
     }
+}
 
 
 #Preview {
     DashboardView()
         .environmentObject(DashboardStore())
+        .environmentObject(LanguageManage())
 }
-

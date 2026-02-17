@@ -14,8 +14,20 @@ class SensorStore: ObservableObject {
     @Published var pole1Value: String
     @Published var pole2Value: String
     
-    private let haBaseURL = "https://ob2s2wfi0mp5smcvcbz8rydvzt2hlvwk.ui.nabu.casa"
-    private let haToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIwNDEzNmRkYTA3ODE0ODY4YmIwMWU4NmJlZWY0MDA2MiIsImlhdCI6MTc0OTcwNDQ0NCwiZXhwIjoyMDY1MDY0NDQ0fQ.XshdadBtHNeAv0_L-X69q_lwTPm6fYKSh-zTsvgymvE"
+    private let haBaseURL: String = {
+        guard let url = Bundle.main.object(forInfoDictionaryKey: "HA_BASE_URL") as? String else {
+            fatalError("❌ HA_BASE_URL not found in Info.plist")
+        }
+        return url
+    }()
+
+    private let haToken: String = {
+        guard let token = Bundle.main.object(forInfoDictionaryKey: "HA_TOKEN") as? String else {
+            fatalError("❌ HA_TOKEN not found in Info.plist")
+        }
+        return token
+    }()
+
     
     private var timerCancellable: AnyCancellable?
 

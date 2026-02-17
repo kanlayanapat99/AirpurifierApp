@@ -19,5 +19,9 @@
 	</array>
 	<key>GIDClientID</key>
 	<string>336866390855-84und596onrlv6rfde4r12riu4ebpc64.apps.googleusercontent.com</string>
+	<key>HA_BASE_URL</key>
+	<string>https://ob2s2wfi0mp5smcvcbz8rydvzt2hlvwk.ui.nabu.casa</string>
+	<key>HA_TOKEN</key>
+	<string>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIwNDEzNmRkYTA3ODE0ODY4YmIwMWU4NmJlZWY0MDA2MiIsImlhdCI6MTc0OTcwNDQ0NCwiZXhwIjoyMDY1MDY0NDQ0fQ.XshdadBtHNeAv0_L-X69q_lwTPm6fYKSh-zTsvgymvE</string>
 </dict>
 </plist>

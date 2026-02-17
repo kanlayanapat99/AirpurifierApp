@@ -5,12 +5,16 @@
 //  Created by Kanlayanapat Thintupthai on 14/6/2568 BE.
 //
 
+
 import SwiftUI
 
 struct FullAirQualityCard: View {
     let airQuality: AirQuality
     @State private var currentTime = Date()
     @State private var animateGradient = false
+    private var aqi: Int {
+        AQIHelper.aqiFromPM25(airQuality.pm25)
+    }
 
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
@@ -82,12 +86,26 @@ struct FullAirQualityCard: View {
                         }
                     }
 
-                    Text("Temp \(Int(airQuality.temperature))°C")
-                        .font(.system(size: 24, weight: .semibold))
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 7)
-                        .background(.ultraThinMaterial)
-                        .cornerRadius(20)
+                    HStack(spacing: 12) {
+
+                        Text("Temp : \(Int(airQuality.temperature))°C")
+                            .font(.system(size: 22, weight: .bold))
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(.ultraThinMaterial)
+                            .cornerRadius(16)
+
+                        Text("AQI : \(aqi)")
+                            .font(.system(size: 22, weight: .bold))
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(.ultraThinMaterial)
+                            .cornerRadius(16)
+                    }
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 7)
+                    .cornerRadius(20)
+
                 }
 
                 Spacer()
@@ -118,12 +136,15 @@ struct MiniAirQualityCard: View {
     let airQuality: AirQuality
     @State private var currentTime = Date()
     @State private var animateGradient = false
+    private var aqi: Int {
+        AQIHelper.aqiFromPM25(airQuality.pm25)
+    }
 
     private var gradient: LinearGradient {
         let colors: [Color]
         switch airQuality.pm25 {
         case 0..<9.1: colors = [.green, .mint]
-        case 9.1..<55.4: colors = [.yellow, .orange]
+        case 9.1..<55.5: colors = [.yellow, .orange]
         default: colors = [.orange, .red]
         }
 
@@ -164,24 +185,21 @@ struct MiniAirQualityCard: View {
                             Text("PM2.5")
                                 .font(.system(size: 28, weight: .bold))
                                 .foregroundColor(.white)
-                            Text("Temp \(Int(airQuality.temperature))°C")
+                            Text("Temp : \(Int(airQuality.temperature))°C")
                                 .font(.system(size: 22, weight: .bold))
                                 .foregroundColor(.white)
+                            
                         }
 
                         Spacer()
 
-                        VStack(alignment: .trailing, spacing: 6) {
+                        VStack(alignment: .trailing, spacing: 10) {
                             Text("\(String(format: "%.2f", airQuality.pm25)) " + "µg/m³".loc)
-                                //แคปชั่นไม่รู้แคปหมูแน่นอน
                                 .font(.system(size: 25, weight: .semibold))
                                 .foregroundColor(.white)
-                            Text(formattedDateTime)
-                                .font(.headline)
-                                .foregroundColor(.white.opacity(0.8))
-                                .onReceive(timer) { time in
-                                    currentTime = time
-                                }
+                            Text("AQI : \(aqi)")
+                                .font(.system(size: 24, weight: .bold))
+                                .foregroundStyle(.white)
                         }
                     }
                 }

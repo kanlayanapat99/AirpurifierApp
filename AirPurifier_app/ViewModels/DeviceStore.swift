@@ -15,8 +15,20 @@ class DeviceStore: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var refreshTimer: AnyCancellable?
 
-    let habaseURL = "https://ob2s2wfi0mp5smcvcbz8rydvzt2hlvwk.ui.nabu.casa"
-    let hatoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIwNDEzNmRkYTA3ODE0ODY4YmIwMWU4NmJlZWY0MDA2MiIsImlhdCI6MTc0OTcwNDQ0NCwiZXhwIjoyMDY1MDY0NDQ0fQ.XshdadBtHNeAv0_L-X69q_lwTPm6fYKSh-zTsvgymvE"
+    private let haBaseURL: String = {
+        guard let url = Bundle.main.object(forInfoDictionaryKey: "HA_BASE_URL") as? String else {
+            fatalError("❌ HA_BASE_URL not found in Info.plist")
+        }
+        return url
+    }()
+
+    private let haToken: String = {
+        guard let token = Bundle.main.object(forInfoDictionaryKey: "HA_TOKEN") as? String else {
+            fatalError("❌ HA_TOKEN not found in Info.plist")
+        }
+        return token
+    }()
+
 
     init() {
             self.airQuality = AirQuality(
@@ -57,14 +69,14 @@ class DeviceStore: ObservableObject {
     
     // MARK: - GET state
     func getState(entity: String, completion: @escaping (String, [String: Any]) -> Void) {
-        guard let url = URL(string: "\(habaseURL)/api/states/\(entity)") else {
+        guard let url = URL(string: "\(haBaseURL)/api/states/\(entity)") else {
             print("❌ Invalid getState URL")
             return
         }
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("Bearer \(hatoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(haToken)", forHTTPHeaderField: "Authorization")
 
         URLSession.shared.dataTask(with: request) { data, _, error in
             if let error = error {
@@ -167,14 +179,14 @@ class DeviceStore: ObservableObject {
     func toggleDevicePower(_ device: Device) {
         let domain = "fan"
         let service = device.isOn ? "turn_off" : "turn_on"
-        let urlStr = "\(habaseURL)/api/services/\(domain)/\(service)"
+        let urlStr = "\(haBaseURL)/api/services/\(domain)/\(service)"
         device.isLoading = true
 
         guard let url = URL(string: urlStr) else { return }
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.setValue("Bearer \(hatoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(haToken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let body: [String: Any] = ["entity_id": device.entityId]
@@ -284,7 +296,7 @@ class DeviceStore: ObservableObject {
     // MARK: - Settings Automode
     func setAutoMode(enabled: Bool) {
         let service = enabled ? "turn_on" : "turn_off"
-        guard let url = URL(string: "\(habaseURL)/api/services/input_boolean/\(service)") else {
+        guard let url = URL(string: "\(haBaseURL)/api/services/input_boolean/\(service)") else {
             print("❌ Invalid URL for auto mode toggle")
             return
         }
@@ -309,7 +321,7 @@ class DeviceStore: ObservableObject {
     // MARK: - Set fanspeed
         func setFanLevel(for device: Device, to level: DeviceLevel) {
             device.isLoading = true
-                let url = URL(string: "\(habaseURL)/api/services/input_select/select_option")!
+                let url = URL(string: "\(haBaseURL)/api/services/input_select/select_option")!
 
                 let option: String
                 switch level {
@@ -344,7 +356,7 @@ class DeviceStore: ObservableObject {
         private func sendRequest(url: URL, payload: [String: Any], completion: @escaping () -> Void) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
-            request.setValue("Bearer \(hatoken)", forHTTPHeaderField: "Authorization")
+            request.setValue("Bearer \(haToken)", forHTTPHeaderField: "Authorization")
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             
             do {
@@ -376,14 +388,14 @@ class DeviceStore: ObservableObject {
     
     // MARK: - Trigger automation
     func triggerAutomation(named automationID: String) {
-        guard let url = URL(string: "\(habaseURL)/api/services/automation/trigger") else {
+        guard let url = URL(string: "\(haBaseURL)/api/services/automation/trigger") else {
             print("❌ Invalid URL for automation trigger")
             return
         }
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.setValue("Bearer \(hatoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(haToken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let body: [String: Any] = [
@@ -418,17 +430,17 @@ class DeviceStore: ObservableObject {
     
     // MARK: - UPDATE Note
     func updateNote(for device: Device) {
-        guard let url = URL(string: "\(habaseURL)/api/services/input_text/set_value") else {
+        guard let url = URL(string: "\(haBaseURL)/api/services/input_text/set_value") else {
             print("❌ Invalid URL for note update")
             return
         }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.setValue("Bearer \(hatoken)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(haToken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let noteValue = device.notes ?? "" // ถ้า nil ให้ส่ง "" (Home Assistant จะมองว่าเป็นค่าว่าง)
+        let noteValue = device.notes ?? ""
         
         let payload: [String: Any] = [
             "entity_id": device.notesEntityId,
